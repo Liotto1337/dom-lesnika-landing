@@ -7,6 +7,7 @@ export const grassVertex = /* glsl */ `
   uniform float uTime;
   uniform vec3 uPointer;
   uniform float uPointerStrength;
+  uniform float uWindScale;
 
   varying float vH;
   varying float vRand;
@@ -28,7 +29,7 @@ export const grassVertex = /* glsl */ `
     // Wind: a slow rolling wave plus a faster per-blade flutter.
     float wave = sin(uTime * 1.25 + aOffset.x * 0.22 + aOffset.z * 0.17);
     float flutter = sin(uTime * 2.9 + aOffset.x * 0.9 + aRand * 6.2831);
-    float wind = wave * 0.55 + flutter * 0.2;
+    float wind = (wave * 0.55 + flutter * 0.2) * uWindScale;
     world.x += wind * 0.28 * bend;
     world.z += wind * 0.1 * bend;
 

@@ -13,6 +13,8 @@ const NEAR_Z = CAMERA_Z - 1.2;
 const FAR_Z = -3;
 const BLADE_WIDTH = 0.075;
 const POINTER_IDLE = new THREE.Vector3(0, -999, 0);
+/** Wind strength when the visitor asked the OS to reduce motion. */
+const REDUCED_WIND = 0.3;
 /** Seconds the push lingers after the cursor stops. */
 const POINTER_HOLD = 2.5;
 
@@ -67,21 +69,23 @@ export function Grass({ count }: { count: number }) {
 
   const geometry = useMemo(() => buildBlades(count, window.innerWidth / window.innerHeight), [count]);
   const proxy = useMemo(() => createHillGeometry(48), []);
+  const windScale = useMemo(() => (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? REDUCED_WIND : 1), []);
   const initialUniforms = useMemo(
     () => ({
       uTime: { value: 0 },
       uPointer: { value: pointer },
       uPointerStrength: { value: 0 },
+      uWindScale: { value: windScale },
       uTint: { value: new THREE.Vector3() },
       uSunColor: { value: new THREE.Vector3() },
       uFogColor: { value: new THREE.Vector3() },
       uLight: { value: 1 },
       uNightGlow: { value: 0 },
     }),
-    [pointer],
+    [pointer, windScale],
   );
 
-  const debug = useMemo(() => ({ count, pointer: [0, -999, 0] }), [count]);
+  const debug = useMemo(() => ({ count, pointer: [0, -999, 0], windScale }), [count, windScale]);
   useEffect(() => debugExpose('grass', debug), [debug]);
 
   const onMove = (e: ThreeEvent<PointerEvent>) => {

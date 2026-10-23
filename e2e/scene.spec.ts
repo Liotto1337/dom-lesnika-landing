@@ -18,7 +18,7 @@ test.describe('3D-сцена', () => {
   });
 });
 
-type GrassDebug = { count: number; pointer: [number, number, number] };
+type GrassDebug = { count: number; pointer: [number, number, number]; windScale: number };
 
 test.describe('трава', () => {
   // Full-density grass on software WebGL: page setup and teardown alone can take tens of seconds.
@@ -36,6 +36,13 @@ test.describe('трава', () => {
     await expect
       .poll(() => page.evaluate(() => (window.__debug!.grass as GrassDebug).pointer.join()))
       .not.toBe(before);
+  });
+
+  test('при «уменьшить движение» ветер слабее', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/?debug&blades=2000');
+    await page.waitForFunction(() => Boolean(window.__debug?.grass), null, { timeout: 15000 });
+    expect(await page.evaluate(() => (window.__debug!.grass as GrassDebug).windScale)).toBeLessThan(0.5);
   });
 
   test('20 000 травинок на телефоне', async ({ page }) => {

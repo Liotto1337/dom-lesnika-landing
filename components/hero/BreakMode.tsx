@@ -16,7 +16,10 @@ export function BreakMode({ onDone }: { onDone: () => void }) {
     const timer = createBreakTimer(BREAK_MS);
     timer.start();
     let raf = 0;
+    let stopped = false;
     const tick = () => {
+      if (stopped) return;
+      cancelAnimationFrame(raf);
       setLabel(formatMMSS(timer.remainingMs()));
       if (timer.isDone()) {
         done.current();
@@ -31,6 +34,7 @@ export function BreakMode({ onDone }: { onDone: () => void }) {
     };
     document.addEventListener('visibilitychange', onVisible);
     return () => {
+      stopped = true;
       cancelAnimationFrame(raf);
       document.removeEventListener('visibilitychange', onVisible);
     };

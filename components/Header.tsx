@@ -25,6 +25,22 @@ export function Header() {
     return () => lenis.start();
   }, [lenis, open]);
 
+  // Close the menu on Esc, and when the screen grows past the burger breakpoint (e.g. phone rotated).
+  useEffect(() => {
+    if (!open) return;
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const close = () => setOpen(false);
+    const onChange = () => desktop.matches && close();
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close();
+    desktop.addEventListener('change', onChange);
+    window.addEventListener('keydown', onKey);
+    onChange();
+    return () => {
+      desktop.removeEventListener('change', onChange);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
   const go = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(false);

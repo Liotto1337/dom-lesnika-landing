@@ -46,3 +46,21 @@ test('открытое меню не прячет логотип и не даё�
   await page.waitForTimeout(800);
   expect(await page.evaluate(() => window.scrollY)).toBe(0);
 });
+
+test('поворот телефона с открытым меню не блокирует прокрутку', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await page.goto(HOME);
+  await page.getByRole('button', { name: 'Меню' }).click();
+  await page.setViewportSize({ width: 780, height: 360 });
+  await page.waitForTimeout(300);
+  await page.mouse.wheel(0, 800);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+});
+
+test('Esc закрывает мобильное меню', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await page.goto(HOME);
+  await page.getByRole('button', { name: 'Меню' }).click();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Меню' })).toHaveAttribute('aria-expanded', 'false');
+});
