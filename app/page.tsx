@@ -1,13 +1,15 @@
 import { Header } from '@/components/Header';
-import { site } from '@/content/site';
+import { Hero } from '@/components/hero/Hero';
 
 export default function Home() {
   return (
     <>
       <Header />
       <main>
-        <section id="top" style={{ minHeight: '100vh', display: 'grid', placeItems: 'center' }}>
-          <h1>{site.name}</h1>
+        <Hero />
+        <div style={{ height: '150vh' }} />
+        <section id="contacts" style={{ minHeight: '60vh' }}>
+          <h2>Контакты</h2>
         </section>
       </main>
     </>
