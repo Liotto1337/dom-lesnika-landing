@@ -22,6 +22,11 @@ export interface ScenePreset {
   stars: number;
   fireflies: number;
   moon: number;
+  /** Sun (or moon at night) direction: azimuth and elevation in degrees, 0° azimuth = straight ahead. */
+  sunAzimuth: number;
+  sunElevation: number;
+  /** Strength of the soft glow around the sun in the sky dome. */
+  sunGlow: number;
 }
 
 export const PRESETS: Record<TimeOfDay, ScenePreset> = {
@@ -38,6 +43,9 @@ export const PRESETS: Record<TimeOfDay, ScenePreset> = {
     stars: 0,
     fireflies: 0,
     moon: 0,
+    sunAzimuth: -55,
+    sunElevation: 28,
+    sunGlow: 0.55,
   },
   sunset: {
     skyTop: '#4a2466',
@@ -52,6 +60,9 @@ export const PRESETS: Record<TimeOfDay, ScenePreset> = {
     stars: 0.15,
     fireflies: 0.2,
     moon: 0,
+    sunAzimuth: 35,
+    sunElevation: 4,
+    sunGlow: 0.9,
   },
   night: {
     skyTop: '#0a1433',
@@ -66,6 +77,9 @@ export const PRESETS: Record<TimeOfDay, ScenePreset> = {
     stars: 1,
     fireflies: 1,
     moon: 1,
+    sunAzimuth: 21,
+    sunElevation: 8,
+    sunGlow: 0.25,
   },
 };
 

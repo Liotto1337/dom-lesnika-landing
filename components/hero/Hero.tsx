@@ -7,13 +7,14 @@ import { useGSAP } from '@gsap/react';
 import { scrollToId } from '@/components/SmoothScroll';
 import { site } from '@/content/site';
 import { BreakMode } from './BreakMode';
+import { SceneMount } from './SceneMount';
 import { TimeSwitcher } from './TimeSwitcher';
 import { useTimeOfDay } from './timeOfDay';
 import styles from './Hero.module.css';
 
 gsap.registerPlugin(useGSAP);
 
-export function Hero({ scene }: { scene?: React.ReactNode }) {
+export function Hero() {
   const root = useRef<HTMLElement>(null);
   const lenis = useLenis();
   const [time] = useTimeOfDay();
@@ -59,7 +60,7 @@ export function Hero({ scene }: { scene?: React.ReactNode }) {
   return (
     <section id="top" ref={root} className={styles.hero} data-time={time}>
       <div className={styles.scene} data-scene-slot>
-        {scene}
+        <SceneMount />
       </div>
 
       <div className={styles.overlay}>
