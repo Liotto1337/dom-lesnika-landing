@@ -1,0 +1,49 @@
+.footer {
+  background: var(--bg-deep);
+  border-top: 1px solid color-mix(in srgb, var(--line) 25%, transparent);
+  padding: 40px 0;
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 40px;
+}
+
+.logo {
+  font-family: var(--font-display), serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--heading);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a {
+  font-family: var(--font-display), serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  color: var(--muted);
+  transition: color 0.3s var(--ease);
+}
+
+.nav a:hover {
+  color: var(--line);
+}
+
+.copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}

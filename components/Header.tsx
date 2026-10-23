@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLenis } from 'lenis/react';
 import { scrollToId } from './SmoothScroll';
 import { site } from '@/content/site';
@@ -17,6 +17,13 @@ export function Header() {
     else if (direction === 1) setHidden(true);
     else if (direction === -1) setHidden(false);
   });
+
+  // The full-screen mobile menu owns the scroll while it is open.
+  useEffect(() => {
+    if (!lenis || !open) return;
+    lenis.stop();
+    return () => lenis.start();
+  }, [lenis, open]);
 
   const go = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();

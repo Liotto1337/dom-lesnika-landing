@@ -31,3 +31,18 @@ test('бургер на телефоне', async ({ page }) => {
   const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(scrollWidth).toBeLessThanOrEqual(360);
 });
+
+test('открытое меню не прячет логотип и не даёт крутить страницу', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await page.goto(HOME);
+  await page.getByRole('button', { name: 'Меню' }).click();
+  const logo = page.locator('header').getByRole('link', { name: 'Дом лесника' });
+  await expect(logo).toBeVisible();
+  expect(await logo.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    return document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2) === el;
+  })).toBe(true);
+  await page.mouse.wheel(0, 800);
+  await page.waitForTimeout(800);
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+});

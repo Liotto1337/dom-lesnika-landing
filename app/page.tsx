@@ -1,5 +1,10 @@
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/hero/Hero';
+import { About } from '@/components/sections/About';
+import { Activities } from '@/components/sections/Activities';
+import { Cabins } from '@/components/sections/Cabins';
+import { Contacts } from '@/components/sections/Contacts';
+import { Footer } from '@/components/sections/Footer';
 
 export default function Home() {
   return (
@@ -7,11 +12,12 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <div style={{ height: '150vh' }} />
-        <section id="contacts" style={{ minHeight: '60vh' }}>
-          <h2>Контакты</h2>
-        </section>
+        <About />
+        <Cabins />
+        <Activities />
+        <Contacts />
       </main>
+      <Footer />
     </>
   );
 }

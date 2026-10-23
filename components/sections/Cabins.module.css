@@ -1,0 +1,125 @@
+.cabins {
+  padding-top: clamp(40px, 6vw, 80px);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: clamp(48px, 7vw, 96px);
+}
+
+.shift {
+  padding-left: clamp(40px, 18vw, 280px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 56px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
+  border-radius: calc(var(--radius) + 8px);
+  padding: 12px;
+  background: color-mix(in srgb, var(--bg-deep) 45%, transparent);
+  transition:
+    border-color 0.4s var(--ease),
+    transform 0.5s var(--ease);
+}
+
+.card:hover {
+  border-color: var(--line);
+  transform: translateY(-4px);
+}
+
+.photo {
+  aspect-ratio: 16 / 11;
+}
+
+.photo img {
+  transition: transform 1.2s var(--ease);
+}
+
+.card:hover .photo img {
+  transform: scale(1.05);
+}
+
+.guests {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(46, 45, 24, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--heading);
+  font-family: var(--font-display), serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 22px 14px 10px;
+}
+
+.body h3 {
+  font-size: clamp(26px, 2.6vw, 36px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.body p {
+  margin: 0.6em 0 1em;
+  color: var(--text);
+}
+
+.body ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.body li {
+  padding: 4px 12px;
+  border: 1px solid color-mix(in srgb, var(--line) 40%, transparent);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.footer {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.price {
+  font-family: var(--font-display), serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  color: var(--line);
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shift {
+    padding-left: 0.8em;
+  }
+}
