@@ -5,6 +5,8 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Cloud, Clouds } from '@react-three/drei';
 import * as THREE from 'three';
 import { Cabin } from './Cabin';
+import { Fireflies } from './Fireflies';
+import { Grass } from './Grass';
 import { Hill } from './Hill';
 import { Sky } from './Sky';
 import { Trees } from './Trees';
@@ -97,8 +99,19 @@ function CameraRig() {
   return null;
 }
 
+/**
+ * Fixed for the lifetime of the scene; resizing does not rebuild the grass.
+ * `?blades=N` overrides it — e2e tests use it because software WebGL is too slow for 60k blades.
+ */
+const grassCount = () => {
+  const override = Number(new URLSearchParams(window.location.search).get('blades'));
+  if (override > 0) return Math.min(override, 200_000);
+  return window.innerWidth >= 768 ? 60_000 : 20_000;
+};
+
 export default function HeroScene() {
   const [visible, setVisible] = useState(true);
+  const [blades] = useState(grassCount);
   const host = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -124,8 +137,10 @@ export default function HeroScene() {
           <Sky />
           <CloudLayer />
           <Hill />
+          <Grass count={blades} />
           <Cabin />
           <Trees />
+          <Fireflies />
           <CameraRig />
         </PresetProvider>
       </Canvas>

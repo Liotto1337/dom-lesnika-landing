@@ -119,6 +119,11 @@
   display: flex;
   justify-content: center;
   z-index: 2;
+  pointer-events: none;
+}
+
+.bottom > * {
+  pointer-events: auto;
 }
 
 .switcher {

@@ -1,13 +1,14 @@
 import { expect, test } from '@playwright/test';
+import { HOME } from './helpers';
 
 test('кнопка «Забронировать» ведёт к контактам', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(HOME);
   await page.locator('#top').getByRole('button', { name: 'Забронировать' }).click();
   await expect(page.locator('#contacts')).toBeInViewport({ timeout: 4000 });
 });
 
 test('переключатель времени суток', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(HOME);
   const group = page.getByRole('group', { name: 'Время суток' });
   const day = group.getByRole('button', { name: 'День' });
   const sunset = group.getByRole('button', { name: 'Закат' });
@@ -20,7 +21,7 @@ test('переключатель времени суток', async ({ page }) =>
 });
 
 test('режим «Подышать лесом»', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(HOME);
   const title = page.locator('#top h1');
   await page.getByRole('button', { name: 'Подышать лесом' }).click();
   await expect(title).toBeHidden();
@@ -33,7 +34,7 @@ test('режим «Подышать лесом»', async ({ page }) => {
 });
 
 test('Esc выключает режим', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(HOME);
   const title = page.locator('#top h1');
   await page.getByRole('button', { name: 'Подышать лесом' }).click();
   await expect(page.getByRole('timer')).toBeVisible();

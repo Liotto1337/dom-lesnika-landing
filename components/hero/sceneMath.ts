@@ -26,3 +26,16 @@ export function hexToVec3(hex: string, target: THREE.Vector3) {
   const n = parseInt(hex.slice(1), 16);
   return target.set(((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255);
 }
+
+export const HILL_SIZE = 140;
+
+export function createHillGeometry(segments: number) {
+  const geo = new THREE.PlaneGeometry(HILL_SIZE, HILL_SIZE, segments, segments);
+  geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    pos.setY(i, hillHeight(pos.getX(i), pos.getZ(i)));
+  }
+  geo.computeVertexNormals();
+  return geo;
+}

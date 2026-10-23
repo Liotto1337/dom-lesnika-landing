@@ -9,3 +9,6 @@ export function trackErrors(page: Page): string[] {
   page.on('pageerror', (err) => errors.push(err.message));
   return errors;
 }
+
+/** Home page with a light grass field: software WebGL in CI cannot render 60k blades quickly. */
+export const HOME = '/?blades=2000';
