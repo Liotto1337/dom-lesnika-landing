@@ -3,3 +3,8 @@ node_modules/
 out/
 *.log
 .env*
+test-results/
+playwright-report/
+e2e/__screens__/
+next-env.d.ts
+*.tsbuildinfo
